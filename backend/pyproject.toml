@@ -1,0 +1,11 @@
+[project]
+name = "followthru"
+version = "0.1.0"
+description = "A simple contact manager."
+requires-python = ">=3.12"
+dependencies = [
+    "falcon",
+    "gunicorn",
+    "psycopg2-binary"
+]
+

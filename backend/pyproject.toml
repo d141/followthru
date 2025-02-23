@@ -7,6 +7,8 @@ dependencies = [
     "falcon",
     "gunicorn",
     "psycopg2-binary",
-    "sqlalchemy"
+    "sqlalchemy",
+    "bcrypt",
+    "pyjwt"
 ]
 

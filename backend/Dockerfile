@@ -28,5 +28,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT []
 
+EXPOSE 8000
+
 # Run the Falcon app with Gunicorn explicitly using the Python binary in .venv
 CMD ["uv", "run", "gunicorn", "-b", "0.0.0.0:8000", "app:app"]

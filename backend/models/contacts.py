@@ -14,6 +14,9 @@ class Contact(Base):
     group = relationship("Group", back_populates="contacts")  # Relationship to Group
     next_contact_date = Column(DateTime, default=datetime.now(timezone.utc))
 
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    user = relationship("User", back_populates="contacts")  # Relationship to User
+
     def to_dict(self):
         """Convert model instance to dictionary for JSON responses"""
         return {
@@ -22,5 +25,8 @@ class Contact(Base):
             "email": self.email,
             "phone": self.phone,
             "group_id": self.group_id,
+            "group": self.group.name if self.group else "No group",
             "next_contact_date": self.next_contact_date.isoformat() if self.next_contact_date else None,
+            "user_id": self.user_id,  # Include user ID in response
         }
+

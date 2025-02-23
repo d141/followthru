@@ -3,48 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FollowThru Contacts</title>
-    <script src="/bundle.js" defer></script>
+    <title>FollowThru</title>
 </head>
-<body class="bg-background flex justify-center items-center min-h-screen">
-    <div class="w-full max-w-5xl bg-white shadow-lg rounded-lg p-8">
-        <h1 class="text-3xl font-bold text-center text-text mb-6">Contacts</h1>
-
-        <!-- Top Controls -->
-        <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-            <input type="text" id="search" placeholder="Search by name..."
-                class="border border-border p-2 rounded w-full sm:w-1/3 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary">
-            
-            <select id="group-filter"
-                class="border border-border p-2 rounded w-full sm:w-1/3 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary">
-                <option value="">All Groups</option>
-            </select>
-
-            <button id="send-email"
-                class="bg-primary text-white p-2 rounded shadow-md hover:bg-secondary transition-all">
-                Send Email
-            </button>
-        </div>
-
-        <!-- Table -->
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-border rounded-lg shadow-md">
-                <thead>
-                    <tr class="bg-gray-200 text-gray-700">
-                        <th class="p-3">
-                            <input type="checkbox" id="select-all" class="w-5 h-5">
-                        </th>
-                        <th class="p-3 cursor-pointer" data-sort="name">Name ⬍</th>
-                        <th class="p-3 cursor-pointer" data-sort="email">Email ⬍</th>
-                        <th class="p-3 cursor-pointer" data-sort="phone">Phone ⬍</th>
-                        <th class="p-3 cursor-pointer" data-sort="group">Group ⬍</th>
-                    </tr>
-                </thead>
-                <tbody id="contacts-table" class="divide-y divide-border"></tbody>
-            </table>
-        </div>
-
-        <p id="loading" class="text-center text-text mt-4">Loading...</p>
-    </div>
+<body>
+    <div id="root"></div> <!-- React app will be inserted here -->
 </body>
 </html>

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL =
-  window.location.hostname === "localhost"
+  window.location.origin.includes("localhost")
     ? "http://localhost:8000"
     : "http://backend:8000";
+
 
 interface Contact {
   id: number;

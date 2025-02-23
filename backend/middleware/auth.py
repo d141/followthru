@@ -4,12 +4,17 @@ from functools import wraps
 from db import SessionLocal
 from models import User
 
-SECRET_KEY = "your-secret-key"  # Ensure this matches the key used in `auth.py`
+SECRET_KEY = "your_super_secret_key"  # Must match auth.py
 
 def require_auth(func):
     """Decorator to require authentication for Falcon resources"""
     @wraps(func)
     def wrapper(self, req, resp, *args, **kwargs):
+        # Allow CORS preflight OPTIONS requests to pass through
+        if req.method == "OPTIONS":
+            resp.status = falcon.HTTP_200
+            return
+
         auth_header = req.get_header("Authorization")
 
         if not auth_header or not auth_header.startswith("Bearer "):
@@ -34,7 +39,7 @@ def require_auth(func):
                 if not user:
                     raise falcon.HTTPUnauthorized(title="Invalid User", description="User not found")
 
-            kwargs["user"] = user  # Attach user to the request
+            kwargs["user"] = user  # Attach user to request
             return func(self, req, resp, *args, **kwargs)
 
         except jwt.ExpiredSignatureError:
@@ -52,7 +57,7 @@ class AuthMiddleware:
     def process_request(self, req, resp):
         """Run before handling a request"""
         # Skip authentication for public routes
-        if req.path in ["/auth/login", "/auth/signup"]:
+        if req.path in ["/auth/login", "/auth/signup"] or req.method == "OPTIONS":
             return
 
         auth_header = req.get_header("Authorization")

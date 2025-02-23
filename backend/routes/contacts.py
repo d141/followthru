@@ -2,6 +2,7 @@ from sqlalchemy.orm import joinedload
 from models import Contact, Group
 from middleware.auth import require_auth
 from db import SessionLocal
+import logging
 
 import falcon
 
@@ -10,8 +11,7 @@ class HelloResource:
         resp.media = {"message": "Hello, world!"}
 
 class ContactsResource:
-    @require_auth
-    def on_get(self, req, resp, user):
+    def on_get(self, req, resp):
         """Handle GET requests to list all contacts"""
         user = req.context.get("user")  # Get authenticated user
 
@@ -39,10 +39,13 @@ class ContactsResource:
             for contact in contacts
         ]
 
-class CreateContactResource:
-    @require_auth
-    def on_post(self, req, resp, user):
+    def on_post(self, req, resp):
         """Create a new contact for the logged-in user"""
+        user = req.context.get("user")  # Get authenticated user
+
+        if not user:
+            raise falcon.HTTPUnauthorized(description="Authentication required")
+        
         data = req.media
 
         with SessionLocal() as session:
@@ -59,3 +62,4 @@ class CreateContactResource:
 
         resp.status = falcon.HTTP_201
         resp.media = {"message": "Contact created", "contact": contact.to_dict()}
+

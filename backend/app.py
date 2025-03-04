@@ -1,10 +1,10 @@
 import falcon
-from db import init_db
+# from db import init_db
 from middleware.auth import AuthMiddleware
 from middleware.cors import CORSComponent
 
-# Initialize database at startup
-init_db()
+# # Initialize database at startup
+# init_db()
 
 
 app = falcon.App(
